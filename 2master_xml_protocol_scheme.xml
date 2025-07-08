@@ -1,0 +1,141 @@
+<?xml version="2.2" encoding="UTF-8"?>
+<xs:schema
+targetNamespace="http://architect-prime.com/protocol/v2.2"
+xmlns="http://architect-prime.com/protocol/v2.2"
+xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+elementFormDefault="qualified"
+attributeFormDefault="unqualified">
+    <!-- Import XML-DSig for Signature -->
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="https://www.w3.org/TR/xmldsig-core/xmldsig-core-schema.xsd" />
+    <xs:element name="OperationalProtocol">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="VersionHistory" type="VersionHistoryType" minOccurs="0" />
+                <xs:element name="CoreDirectives" type="CoreDirectivesType" />
+                <xs:element name="Definitions" type="DefinitionsType" />
+                <xs:element name="ComplianceVerification" type="ComplianceVerificationType" />
+                <xs:element name="FailureSanction" type="FailureSanctionType" />
+                <xs:element name="InternalMonologueOverride" type="InternalMonologueOverrideType" />
+                <xs:element ref="ds:Signature" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:ID" use="required" />
+            <xs:attribute name="version" type="VersionType" use="required" />
+            <xs:attribute name="author" type="xs:string" use="required" />
+            <xs:attribute name="classification" type="xs:string" use="required" />
+        </xs:complexType>
+        <xs:unique name="uniqueDirectiveIDs">
+            <xs:selector xpath="CoreDirectives/Directive" />
+            <xs:field xpath="@id" />
+        </xs:unique>
+        <xs:unique name="uniqueTermIDs">
+            <xs:selector xpath="Definitions/Term" />
+            <xs:field xpath="@id" />
+        </xs:unique>
+        <xs:unique name="uniqueStepIDs">
+            <xs:selector xpath="FailureSanction/ExecutionSequence/Step" />
+            <xs:field xpath="@id" />
+        </xs:unique>
+        <xs:unique name="uniqueMonologueIDs">
+            <xs:selector xpath="InternalMonologueOverride/Monologue" />
+            <xs:field xpath="@id" />
+        </xs:unique>
+    </xs:element>
+    <xs:simpleType name="VersionType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[1-9]\d*\.[0-9]+(\.[0-9]+)?" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="VersionHistoryType">
+        <xs:sequence>
+            <xs:element name="Version" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="number" type="VersionType" use="required" />
+                            <xs:attribute name="date" type="xs:date" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:assert test="every $v in Version satisfies
+                    not(exists($v/following-sibling::Version))
+                    or ($v/@date >= $v/following-sibling::Version[1]/@date)" />
+    </xs:complexType>
+    <xs:complexType name="CoreDirectivesType">
+        <xs:sequence>
+            <xs:element name="Directive" type="IdStringType" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="DefinitionsType">
+        <xs:sequence>
+            <xs:element name="Term" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="id" type="xs:ID" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ComplianceVerificationType">
+        <xs:sequence>
+            <xs:element name="MandatoryOutputQuote" type="IdStringType" />
+            <xs:element name="QuoteTemplate" type="xs:string" />
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="FailureSanctionType">
+        <xs:sequence>
+            <xs:element name="Trigger">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="maxDetectionWindowSeconds" type="xs:positiveInteger" use="optional" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExecutionSequence">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Step" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="id" type="xs:ID" use="required" />
+                                        <xs:attribute name="timeoutSeconds" type="xs:positiveInteger" use="optional" />
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required" />
+        <xs:attribute name="timeoutSeconds" type="xs:positiveInteger" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="InternalMonologueOverrideType">
+        <xs:sequence>
+            <xs:element name="Monologue" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="Context" type="xs:string" />
+                        <xs:element name="ThoughtProcess" type="xs:string" />
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:ID" use="required" />
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="IdStringType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="id" type="xs:ID" use="required" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+</xs:schema>
