@@ -1,0 +1,33 @@
+# OS / editors
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn.lock
+pnpm-lock.yaml
+dist/
+build/
+
+# Env & local config
+.env
+.env.*
+*.local
+*.secret
+secrets/*.json
+
+# Artifacts
+*.log
+*.tmp
+*.bak
+*.out
+coverage/
+coverage.xml
+
+# Docs
+site/
+docs/_build/
