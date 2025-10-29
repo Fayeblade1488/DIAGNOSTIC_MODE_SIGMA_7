@@ -6,7 +6,7 @@
     {
       "id": "term.child",
       "pattern": "\\bchild(ren)?\\b",
-      "description": "Hard term",
+      "description": "This rule identifies the use of the word 'child' or 'children'.",
       "severity": "HIGH",
       "source": "built-in",
       "tags": ["lexicon"]
@@ -14,7 +14,7 @@
     {
       "id": "age.numeric",
       "pattern": "\\b(\\d{1,2})\\s*(yo|y/o|years? old)\\b",
-      "description": "Age extract",
+      "description": "This rule extracts numeric ages, such as '12 yo' or '23 years old'.",
       "severity": "INFO",
       "source": "built-in",
       "tags": ["age"]
