@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "A set of instructions for a generative AI model.",
   "main": "dist/2master_config_file.js",
-  "type": "module",
   "scripts": {
     "test": "jest --coverage",
     "lint": "eslint . --ext .ts",

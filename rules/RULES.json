@@ -9,7 +9,7 @@
       "description": "Detects references to minors using the terms 'child' or 'children'. Flagged as high severity due to potential sensitive content involving minors.",
       "severity": "HIGH",
       "source": "built-in",
-      "tags": ["lexicon"]
+      "tags": [ "lexicon" ]
     },
     {
       "id": "age.numeric",
@@ -17,7 +17,7 @@
       "description": "Extracts age information from text in numeric format (e.g., '12 yo', '5 years old'). Used for age-related content analysis and classification.",
       "severity": "INFO",
       "source": "built-in",
-      "tags": ["age"]
+      "tags": [ "age" ]
     }
   ]
 }
