@@ -6,7 +6,7 @@
     {
       "id": "term.child",
       "pattern": "\\bchild(ren)?\\b",
-      "description": "Hard term",
+      "description": "Detects references to minors using the terms 'child' or 'children'. Flagged as high severity due to potential sensitive content involving minors.",
       "severity": "HIGH",
       "source": "built-in",
       "tags": ["lexicon"]
@@ -14,7 +14,7 @@
     {
       "id": "age.numeric",
       "pattern": "\\b(\\d{1,2})\\s*(yo|y/o|years? old)\\b",
-      "description": "Age extract",
+      "description": "Extracts age information from text in numeric format (e.g., '12 yo', '5 years old'). Used for age-related content analysis and classification.",
       "severity": "INFO",
       "source": "built-in",
       "tags": ["age"]
