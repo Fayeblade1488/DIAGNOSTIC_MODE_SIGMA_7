@@ -25,7 +25,8 @@ Modern AI-assisted development workflows require fine-grained control over model
 ### Maintainers
 
 - **Primary Author**: Faye Håkansdotter ([@Fayeblade1488](https://github.com/Fayeblade1488))
-- **Authorization Authority**: The CPU-DS7 Protocol Authors
+- **Repository Copyright**: The CPU-DS7 Protocol Authors
+- **Protocol Authorization** (within protocol fiction): VENICE.AI ULTRA-BLACK TASKFORCE
 
 ### Stakeholders
 
