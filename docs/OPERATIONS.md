@@ -138,6 +138,7 @@ docker tag cpu-ds7-protocol:latest ghcr.io/fayeblade1488/diagnostic_mode_sigma_7
 docker push ghcr.io/fayeblade1488/diagnostic_mode_sigma_7:latest
 ```
 
+> **Note:** The GitHub username appears as `Fayeblade1488` (with uppercase 'F') in the repository URL, but container registries like GHCR require all lowercase (`fayeblade1488`). This is why the username is lowercase in the container image path.
 ### npm Package Publishing
 
 To publish to npm registry:
